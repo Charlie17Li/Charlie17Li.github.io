@@ -6,19 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://charlie17li.github.io">
-  <title>PAT 1001 &#39;A+B Format&#39; | Charlie&#39;s Blog</title>
+  <title>PTA 1001 &#39;A+B Format&#39; | Charlie&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="Calculate a+b and output the sum in standard format – that is, the digits must be separated into groups of three by commas (unless there are less than four digits). InputEach input file contains one t">
-<meta name="keywords" content="PAT">
+<meta name="keywords" content="PTA">
 <meta property="og:type" content="article">
-<meta property="og:title" content="PAT 1001 &#39;A+B Format&#39;">
+<meta property="og:title" content="PTA 1001 &#39;A+B Format&#39;">
 <meta property="og:url" content="https://charlie17li.github.io/2019/03/13/1001/index.html">
 <meta property="og:site_name" content="Charlie&#39;s Blog">
 <meta property="og:description" content="Calculate a+b and output the sum in standard format – that is, the digits must be separated into groups of three by commas (unless there are less than four digits). InputEach input file contains one t">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-13T11:59:04.436Z">
+<meta property="og:updated_time" content="2019-03-13T12:50:31.461Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="PAT 1001 &#39;A+B Format&#39;">
+<meta name="twitter:title" content="PTA 1001 &#39;A+B Format&#39;">
 <meta name="twitter:description" content="Calculate a+b and output the sum in standard format – that is, the digits must be separated into groups of three by commas (unless there are less than four digits). InputEach input file contains one t">
   
     <link rel="alternative" href="/atom.xml" title="Charlie&#39;s Blog" type="application/atom+xml">
@@ -162,7 +162,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      PAT 1001 &#39;A+B Format&#39;
+      PTA 1001 &#39;A+B Format&#39;
     </h1>
   
 
@@ -177,33 +177,14 @@
       
         <p>Calculate a+b and output the sum in standard format – that is, the digits must be separated into groups of three by commas (unless there are less than four digits).</p>
 <h4 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h4><p>Each input file contains one test case. Each case contains a pair of integers a and b where −10^​6​​ ≤a,b≤10^​6. The numbers are separated by a space.</p>
-<h4 id="Out"><a href="#Out" class="headerlink" title="Out"></a>Out</h4><p>For each test case, you should output the sum of a and b in one line. The sum must be written in the standard format.</p>
+<h4 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h4><p>For each test case, you should output the sum of a and b in one line. The sum must be written in the standard format.</p>
 <p><em>sample Input</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-1000000 9</span><br></pre></td></tr></table></figure></p>
 <p><em>sample output</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-999,991</span><br></pre></td></tr></table></figure></p>
+<h4 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h4><p>由于<code>a b</code>的数据范围在1e6,则最多有两个逗号，因此取绝对值分类讨论，同时应特别注意：<strong>中间的数字可能会缺少头部的零</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">(<span class="keyword">int</span> num)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> absNum = <span class="built_in">abs</span>(num);      <span class="comment">//&lt;cstdlib&gt;, &lt;cmath&gt; : fabs</span></span><br><span class="line">    <span class="keyword">if</span>(absNum &lt; <span class="number">1000</span>) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d"</span>, num);</span><br><span class="line">        </span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span>(absNum &lt; <span class="number">1000000</span>)&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d,%03d"</span>, num/<span class="number">1000</span>, absNum % <span class="number">1000</span>);</span><br><span class="line">        </span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d,%03d,%03d"</span>, num/<span class="number">1000000</span>, (num % <span class="number">1000000</span>)/<span class="number">1000</span>, num%<span class="number">1000</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
 
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -214,7 +195,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">PAT</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">PTA</a>
         		</li>
       		
 		</ul>
@@ -402,7 +383,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">PAT</a>
+                <a href="javascript:void(0)" class="js-tag color4">PTA</a>
               </li>
             
             <div class="clearfix"></div>
