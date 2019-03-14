@@ -152,6 +152,233 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Cpp-RandomNum" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/14/Cpp-RandomNum/">Cpp_RandomNum</a>
+    </h1>
+  
+
+        
+        <a href="/2019/03/14/Cpp-RandomNum/" class="archive-article-date">
+  	<time datetime="2019-03-14T15:56:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Cpp产生随机数，需要配合<code>srand</code>来使用<code>rand</code>函数.<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> * <span class="title">getRandomArr</span><span class="params">(<span class="keyword">int</span> size, <span class="keyword">int</span> l, <span class="keyword">int</span> r)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> * arr = <span class="keyword">new</span> <span class="keyword">int</span>[size];</span><br><span class="line">    srand(time(<span class="literal">NULL</span>));        <span class="comment">//#include&lt;ctime&gt;</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; size; i++)</span><br><span class="line">        arr[i] = rand() % (r - l + <span class="number">1</span>) + l;</span><br><span class="line">    <span class="keyword">return</span> arr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Cpp</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Memo</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/03/14/Cpp-RandomNum/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Algo-ShellSort" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/14/Algo-ShellSort/">Algo_ShellSort</a>
+    </h1>
+  
+
+        
+        <a href="/2019/03/14/Algo-ShellSort/" class="archive-article-date">
+  	<time datetime="2019-03-14T15:47:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><p>希尔排序–为了使元素更快的 <em>局部有序</em> 根据步长进行<code>直接插入排序</code>，即每次都有gap个待排序的组.</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">shellSort</span><span class="params">(<span class="keyword">int</span> * arr, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> gap = n / <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">while</span>(gap &gt;= <span class="number">1</span>) &#123;   <span class="comment">//步长为1结束后，就全部有序了</span></span><br><span class="line">        <span class="keyword">int</span> cnt = gap;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; cnt; i++) &#123;      <span class="comment">//分成了cnt个小组 插入排序, [i, n), 'gap'</span></span><br><span class="line">            <span class="keyword">int</span> idx = i;    <span class="comment">//[i, idx) is ordered</span></span><br><span class="line">            <span class="keyword">while</span>(idx &lt; n) &#123;</span><br><span class="line">                <span class="keyword">int</span> tmpIndx = idx - gap;</span><br><span class="line">                <span class="keyword">while</span> (tmpIndx &gt;= i &amp;&amp; arr[tmpIndx] &gt; arr[tmpIndx + gap]) &#123;</span><br><span class="line">                    swap(arr[tmpIndx], arr[tmpIndx + gap]);</span><br><span class="line">                    tmpIndx -= gap;</span><br><span class="line">                &#125;</span><br><span class="line">                idx += gap;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        gap /= <span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Sort</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/03/14/Algo-ShellSort/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Algo-MergeSort" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/14/Algo-MergeSort/">Algo_MergeSort</a>
+    </h1>
+  
+
+        
+        <a href="/2019/03/14/Algo-MergeSort/" class="archive-article-date">
+  	<time datetime="2019-03-14T15:35:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><p>将问题分解成小问题，直至问题的解显而易见，再倒回去解决更大的问题.</p>
+<p>归并排序–一个待排序的数组 分成两部分，先对小数组排好序，然后将两个小数组归并，则原问题得以求解.</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> _merge(<span class="keyword">int</span> * arr, <span class="keyword">int</span> l, <span class="keyword">int</span> mid, <span class="keyword">int</span> r) &#123; <span class="comment">//merge &gt;&gt; [l, mid], (mid, r]</span></span><br><span class="line">    <span class="keyword">int</span> * newArr = <span class="keyword">new</span> <span class="keyword">int</span>[r - l + <span class="number">1</span>];</span><br><span class="line">    <span class="keyword">int</span> i = l, j = mid + <span class="number">1</span>, k = <span class="number">0</span>;      <span class="comment">//[l, i), [mid + 1, j), [0, k)</span></span><br><span class="line">    <span class="keyword">while</span> (i &lt;= mid &amp;&amp; j &lt;= r) &#123;</span><br><span class="line">        <span class="keyword">if</span>(arr[i] &lt;= arr[j]) &#123;</span><br><span class="line">            newArr[k++] = arr[i++];</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span>(arr[j] &lt; arr[i]) &#123;</span><br><span class="line">            newArr[k++] = arr[j++];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(i &gt; mid) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> m = j; m &lt;= r; m++) &#123;</span><br><span class="line">            newArr[k++] = arr[m];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(j &gt; r) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> m = i; m &lt;= mid; m++) &#123;</span><br><span class="line">            newArr[k++] = arr[m];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//放回去</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> m = <span class="number">0</span>; m &lt; k; m++) &#123;</span><br><span class="line">        arr[m + l] = newArr[m];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">free</span>(newArr);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> _mergeSort(<span class="keyword">int</span> * arr, <span class="keyword">int</span> l, <span class="keyword">int</span> r) &#123;</span><br><span class="line">    <span class="keyword">if</span>(r == l) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> mid = (r - l) / <span class="number">2</span> + l;</span><br><span class="line">    _mergeSort(arr, l, mid);</span><br><span class="line">    _mergeSort(arr, mid + <span class="number">1</span>, r);</span><br><span class="line">    _merge(arr, l, mid, r);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">mergeSort</span><span class="params">(<span class="keyword">int</span> * arr, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    _mergeSort(arr, <span class="number">0</span>, n - <span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Sort</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/03/14/Algo-MergeSort/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-HDU-4004" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -173,6 +400,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>The annual Games in frogs’ kingdom started again. The most famous game is the Ironfrog Triathlon. One test in the Ironfrog Triathlon is jumping. This project requires the frog athletes to jump over the river. The width of the river is L (1&lt;= L &lt;= 1000000000). There are n (0&lt;= n &lt;= 500000) stones lined up in a straight line from one side to the other side of the river. The frogs can only jump through the river, but they can land on the stones. If they fall into the river, they are out. The frogs was asked to jump at most m (1&lt;= m &lt;= n+1) times. Now the frogs want to know if they want to jump across the river, at least what ability should they have. (That is the frog’s longest jump distance).</p>
+<p><a href="http://acm.hdu.edu.cn/showproblem.php?pid=4004" target="_blank" rel="noopener">HUD-4004</a></p>
 <h4 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h4><p>The input contains several cases. The first line of each case contains three positive integer L, n, and m.<br>Then n lines follow. Each stands for the distance from the starting banks to the nth stone, two stone appear in one place is impossible.</p>
 <h4 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h4><p>For each case, output a integer standing for the frog’s ability at least they should have.</p>
 <p><em>sample Input</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">6 1 2</span><br><span class="line">2</span><br><span class="line">25 3 3</span><br><span class="line">11 </span><br><span class="line">2</span><br><span class="line">18</span><br></pre></td></tr></table></figure></p>
@@ -578,11 +806,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">PTA</a>
+                <a href="javascript:void(0)" class="js-tag color5">Sort</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">模拟</a>
+                <a href="javascript:void(0)" class="js-tag color4">Cpp</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Memo</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -591,6 +823,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">二分</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">PTA</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">模拟</a>
               </li>
             
             <div class="clearfix"></div>

@@ -6,20 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://charlie17li.github.io">
-  <title>PTA 1002 A+B for Polynomials | Charlie&#39;s Blog</title>
+  <title>Cpp_RandomNum | Charlie&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="This time, you are supposed to find A+B where A and B are two polynomials. InputEach input file contains one test case. Each case occupies 2 lines, and each line contains the information of a polynomi">
-<meta name="keywords" content="PTA,模拟">
+  <meta name="description" content="Cpp产生随机数，需要配合srand来使用rand函数.1234567int * getRandomArr(int size, int l, int r) &amp;#123;    int * arr = new int[size];    srand(time(NULL));        //#include&amp;lt;ctime&amp;gt;    for(int i = 0; i &amp;lt; size; i">
+<meta name="keywords" content="Cpp,Memo">
 <meta property="og:type" content="article">
-<meta property="og:title" content="PTA 1002 A+B for Polynomials">
-<meta property="og:url" content="https://charlie17li.github.io/2019/03/13/PTA-1002/index.html">
+<meta property="og:title" content="Cpp_RandomNum">
+<meta property="og:url" content="https://charlie17li.github.io/2019/03/14/Cpp-RandomNum/index.html">
 <meta property="og:site_name" content="Charlie&#39;s Blog">
-<meta property="og:description" content="This time, you are supposed to find A+B where A and B are two polynomials. InputEach input file contains one test case. Each case occupies 2 lines, and each line contains the information of a polynomi">
+<meta property="og:description" content="Cpp产生随机数，需要配合srand来使用rand函数.1234567int * getRandomArr(int size, int l, int r) &amp;#123;    int * arr = new int[size];    srand(time(NULL));        //#include&amp;lt;ctime&amp;gt;    for(int i = 0; i &amp;lt; size; i">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-13T14:19:42.151Z">
+<meta property="og:updated_time" content="2019-03-14T16:03:46.004Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="PTA 1002 A+B for Polynomials">
-<meta name="twitter:description" content="This time, you are supposed to find A+B where A and B are two polynomials. InputEach input file contains one test case. Each case occupies 2 lines, and each line contains the information of a polynomi">
+<meta name="twitter:title" content="Cpp_RandomNum">
+<meta name="twitter:description" content="Cpp产生随机数，需要配合srand来使用rand函数.1234567int * getRandomArr(int size, int l, int r) &amp;#123;    int * arr = new int[size];    srand(time(NULL));        //#include&amp;lt;ctime&amp;gt;    for(int i = 0; i &amp;lt; size; i">
   
     <link rel="alternative" href="/atom.xml" title="Charlie&#39;s Blog" type="application/atom+xml">
   
@@ -155,33 +155,27 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-PTA-1002" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-Cpp-RandomNum" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      PTA 1002 A+B for Polynomials
+      Cpp_RandomNum
     </h1>
   
 
         
-        <a href="/2019/03/13/PTA-1002/" class="archive-article-date">
-  	<time datetime="2019-03-13T14:11:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-13</time>
+        <a href="/2019/03/14/Cpp-RandomNum/" class="archive-article-date">
+  	<time datetime="2019-03-14T15:56:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-14</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>This time, you are supposed to find A+B where A and B are two polynomials.</p>
-<h4 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h4><p>Each input file contains one test case. Each case occupies 2 lines, and each line contains the information of a polynomial:<br>1 &lt; K &lt; 10, 0 &lt;= N &lt;= 1000</p>
-<h4 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h4><p>For each test case you should output the sum of A and B in one line, with the same format as the input. Notice that there must be NO extra space at the end of each line. Please be accurate to 1 decimal place.</p>
-<p><em>sample Input</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2 1 2.4 0 3.2</span><br><span class="line">2 2 1.5 1 0.5</span><br></pre></td></tr></table></figure></p>
-<p><em>sample output</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">3 2 1.5 1 2.9 0 3.2</span><br></pre></td></tr></table></figure></p>
-<h4 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h4><p>两个有序数组同类项合并，特别注意：<strong>当系数为零，不应该输出出来</strong>， 非常像归并排序，<strong>注意索引的意义</strong></p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">double</span> eps = <span class="number">1e-6</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> a1[<span class="number">15</span>], b1[<span class="number">15</span>], c1[<span class="number">25</span>];</span><br><span class="line"><span class="keyword">double</span> a2[<span class="number">15</span>], b2[<span class="number">15</span>], c2[<span class="number">25</span>];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">//freopen("in.txt", "r", stdin);</span></span><br><span class="line">    <span class="keyword">int</span> n, m, a = <span class="number">0</span>, b = <span class="number">0</span>, c = <span class="number">0</span>;    <span class="comment">//[0,a),[0,b),[0,c)已经考虑了</span></span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d%lf"</span>, &amp;a1[i], &amp;a2[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;m);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i++) &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d%lf"</span>, &amp;b1[i], &amp;b2[i]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(a &lt; n &amp;&amp; b &lt; m) &#123;</span><br><span class="line">        <span class="keyword">if</span>(a1[a] == b1[b]) &#123;</span><br><span class="line">            <span class="keyword">if</span>(<span class="built_in">fabs</span>(a2[a] + b2[b]) &lt; eps ) &#123;</span><br><span class="line">                a++, b++;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            c1[c] = a1[a];</span><br><span class="line">            c2[c++] = a2[a++] + b2[b++];</span><br><span class="line"></span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span>(a1[a] &gt; b1[b]) &#123;</span><br><span class="line">            c1[c] = a1[a];</span><br><span class="line">            c2[c++] = a2[a++];</span><br><span class="line"></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            c1[c] = b1[b];</span><br><span class="line">            c2[c++] = b2[b++];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(a == n) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = b; i &lt; m; i++) &#123;</span><br><span class="line">            c1[c] = b1[i];</span><br><span class="line">            c2[c++] = b2[i];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(b == m) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = a; i &lt; n; i++) &#123;</span><br><span class="line">            c1[c] = a1[i];</span><br><span class="line">            c2[c++] = a2[i];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//output</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d"</span>, c);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; c; i++) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">" %d %.1f"</span>, c1[i], c2[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <p>Cpp产生随机数，需要配合<code>srand</code>来使用<code>rand</code>函数.<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> * <span class="title">getRandomArr</span><span class="params">(<span class="keyword">int</span> size, <span class="keyword">int</span> l, <span class="keyword">int</span> r)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> * arr = <span class="keyword">new</span> <span class="keyword">int</span>[size];</span><br><span class="line">    srand(time(<span class="literal">NULL</span>));        <span class="comment">//#include&lt;ctime&gt;</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; size; i++)</span><br><span class="line">        arr[i] = rand() % (r - l + <span class="number">1</span>) + l;</span><br><span class="line">    <span class="keyword">return</span> arr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 
       
 
@@ -195,11 +189,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">PTA</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Cpp</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">模拟</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Memo</a>
         		</li>
       		
 		</ul>
@@ -255,7 +249,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://charlie17li.github.io/2019/03/13/PTA-1002/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://charlie17li.github.io/2019/03/14/Cpp-RandomNum/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -269,18 +263,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/03/13/PTA-1003/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          PTA 1003
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/03/13/PTA-1001/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">PTA 1001 &#39;A+B Format&#39;</div>
+    <a href="/2019/03/14/Algo-ShellSort/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Algo_ShellSort</div>
       <i class="icon-circle-right"></i>
     </a>
   
