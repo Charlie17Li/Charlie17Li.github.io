@@ -152,6 +152,93 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-HDU-4004" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/14/HDU-4004/">HDU 4004 &#34;The Frog&#39;s Games&#34;</a>
+    </h1>
+  
+
+        
+        <a href="/2019/03/14/HDU-4004/" class="archive-article-date">
+  	<time datetime="2019-03-14T13:02:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>The annual Games in frogs’ kingdom started again. The most famous game is the Ironfrog Triathlon. One test in the Ironfrog Triathlon is jumping. This project requires the frog athletes to jump over the river. The width of the river is L (1&lt;= L &lt;= 1000000000). There are n (0&lt;= n &lt;= 500000) stones lined up in a straight line from one side to the other side of the river. The frogs can only jump through the river, but they can land on the stones. If they fall into the river, they are out. The frogs was asked to jump at most m (1&lt;= m &lt;= n+1) times. Now the frogs want to know if they want to jump across the river, at least what ability should they have. (That is the frog’s longest jump distance).</p>
+<h4 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h4><p>The input contains several cases. The first line of each case contains three positive integer L, n, and m.<br>Then n lines follow. Each stands for the distance from the starting banks to the nth stone, two stone appear in one place is impossible.</p>
+<h4 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h4><p>For each case, output a integer standing for the frog’s ability at least they should have.</p>
+<p><em>sample Input</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">6 1 2</span><br><span class="line">2</span><br><span class="line">25 3 3</span><br><span class="line">11 </span><br><span class="line">2</span><br><span class="line">18</span><br></pre></td></tr></table></figure></p>
+<p><em>sample output</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">4</span><br><span class="line">11</span><br></pre></td></tr></table></figure></p>
+<h4 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h4><p>首先要注意 <strong>青蛙最多跳m次，而不是只能跳m次</strong>，所以问题的解范围:[石头间最大间距, 河长]，即可以枚举.</p>
+<p>在判断一个gap是否合格，<strong>主要判断步长为gap时是否能在m次到达河岸</strong>。</p>
+<h5 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h5><p>在设计check函数时，相当然的以为青蛙每次至少能走动一次(实际本来也应该是这样)，但是我偷懒，直接从<code>gap == 1</code>开始枚举，结果出现死循环。</p>
+<p>其次，maxLen针对每次case没有初始化，结果提交n次，最后拿着AC的题解一行行比对…</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> stone[<span class="number">500005</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">check</span><span class="params">(<span class="keyword">int</span> gap, <span class="keyword">int</span> n, <span class="keyword">int</span> m)</span> </span>&#123;   <span class="comment">//以gap为步长，是否能过河 ： 即过河需要走多少步</span></span><br><span class="line">    <span class="keyword">int</span> pos = <span class="number">0</span>, cnt = <span class="number">0</span>;   <span class="comment">//pos ：此刻青蛙的位置，时刻维护这个定义 orz!</span></span><br><span class="line">    <span class="keyword">while</span>(pos &lt; n + <span class="number">1</span>) &#123;    <span class="comment">//arr's range : [0, n + 1]</span></span><br><span class="line">        <span class="keyword">int</span> len = stone[pos] + gap;</span><br><span class="line">        <span class="keyword">while</span> (pos + <span class="number">1</span> &lt;= n + <span class="number">1</span> &amp;&amp; len &gt;= stone[pos + <span class="number">1</span>]) &#123;     <span class="comment">//能走到下一个位置，且下一个位置合法</span></span><br><span class="line">            pos++;</span><br><span class="line">        &#125;   <span class="comment">//找到下一个位置</span></span><br><span class="line">        cnt++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> cnt &lt;= m;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> L, n, m, maxLen = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (<span class="built_in">scanf</span>(<span class="string">"%d%d%d"</span>, &amp;L, &amp;n, &amp;m) != EOF) &#123;</span><br><span class="line">        stone[<span class="number">0</span>] = <span class="number">0</span>, stone[n+<span class="number">1</span>] = L;</span><br><span class="line">        maxLen = <span class="number">0</span>;    <span class="comment">// orz </span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;stone[i]);</span><br><span class="line"></span><br><span class="line">        sort(stone, stone + n + <span class="number">2</span>);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= n; i++)</span><br><span class="line">            maxLen = max(maxLen, stone[i + <span class="number">1</span>] - stone[i]);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = maxLen; i &lt;= L; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(check(i, n, m)) &#123;</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, i);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">HDU</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">二分</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/03/14/HDU-4004/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-PTA-1003" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -185,6 +272,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">PTA</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -485,6 +583,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">模拟</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">HDU</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">二分</a>
               </li>
             
             <div class="clearfix"></div>
