@@ -152,6 +152,96 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-MSSQL-STRUCTURE" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/18/MSSQL-STRUCTURE/">MSSQL (1) STRUCTURE_DEFINE</a>
+    </h1>
+  
+
+        
+        <a href="/2019/03/18/MSSQL-STRUCTURE/" class="archive-article-date">
+  	<time datetime="2019-03-18T13:35:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="定义表和完整性约束"><a href="#定义表和完整性约束" class="headerlink" title="定义表和完整性约束"></a>定义表和完整性约束</h4><p>在此之前需要明白几个概念：<code>列级完整性约束</code>，<code>表级完整性约束</code>，总共有6个完整性约束，<code>NOT NULL</code> 和 <code>DEFAULT</code> 只能在列级完整性约束定义.</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--定义表,主要理解约束的两种写法，以及常用的数据类型.</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Student (</span><br><span class="line">    stu_id <span class="built_in">VARCHAR</span>(<span class="number">16</span>) PRIMARY <span class="keyword">KEY</span>,</span><br><span class="line">    stu_name <span class="built_in">VARCHAR</span>(<span class="number">16</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">    cla_id <span class="built_in">VARCHAR</span>(<span class="number">32</span>) <span class="keyword">REFERENCES</span> <span class="keyword">Class</span>(cla_id),</span><br><span class="line">    idCard <span class="built_in">VARCHAR</span>(<span class="number">32</span>) <span class="keyword">UNIQUE</span>,</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="keyword">Class</span> (</span><br><span class="line">    cla_id <span class="built_in">VARCHAR</span>(<span class="number">16</span>),</span><br><span class="line">    cla_name <span class="built_in">VARCHAR</span>(<span class="number">32</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">    col_id <span class="built_in">VARCHAR</span>(<span class="number">2</span>),</span><br><span class="line">    tuition MONEY,</span><br><span class="line">    <span class="keyword">CONSTRAINT</span> PK_Class_cla_id PRIMARY <span class="keyword">KEY</span>(cla_id),     <span class="comment">--自定义名字</span></span><br><span class="line">    <span class="keyword">FOREIGN</span> <span class="keyword">KEY</span>(col_id) <span class="keyword">REFERENCES</span> college(col_id),     <span class="comment">--默认使用系统的</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<h4 id="修改表结构"><a href="#修改表结构" class="headerlink" title="修改表结构"></a>修改表结构</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">------增加列------</span></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> Student <span class="keyword">ADD</span> sex <span class="built_in">varchar</span>(<span class="number">2</span>) <span class="keyword">DEFAULT</span> <span class="string">'男'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">------删除列------</span></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> Student <span class="keyword">DROP</span> sex;</span><br><span class="line"></span><br><span class="line"><span class="comment">------修改列------</span></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> Student <span class="keyword">ALTER</span> <span class="keyword">COLUMN</span> sex <span class="built_in">BIT</span> <span class="keyword">DEFAULT</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">------增加约束------</span></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> Student </span><br><span class="line">    <span class="keyword">ADD</span> <span class="keyword">CONSTRAINT</span> CK_Student_sex <span class="keyword">CHECK</span>(sex = <span class="string">'男'</span> <span class="keyword">OR</span> sex = <span class="string">'女'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">------删除约束------</span></span><br><span class="line"><span class="keyword">ALTER</span> TALBE Student <span class="keyword">DROP</span> <span class="keyword">CONSTRAINT</span> CK_Student_sex;</span><br></pre></td></tr></table></figure>
+<p><em>对于修改操作还需要注意一些东西</em>：</p>
+<ul>
+<li><p>对于<code>NOT NULL</code>约束，如果字段里没有加索引则可以通过<code>ALTER COLUMN</code>修改表的定义来修改，否则要先删除索引.</p>
+</li>
+<li><p><code>VARCHAR(MAX)</code> 不能添加 <code>UNIQUE</code>约束.</p>
+</li>
+<li><p>同时对于SQL:case insensitive 的认识是<strong>针对关键字以及表名，列名等</strong>，表中的值不能与之比较.</p>
+</li>
+</ul>
+<h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><ul>
+<li>删除表的时候先删除外键所在表，创建表时先建立主键所在表.</li>
+<li><strong>唯一性约束允许有一个空值，可以限制一列，也可以限制多列组合</strong>.</li>
+<li>varchar(n) 也可以存储中文，只是一个中文算两个字符，即(n-2)，而nvarchar(n) 英文中文都算一个字符，即(n-1).</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MSSQL</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/03/18/MSSQL-STRUCTURE/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-HDU-2018" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -758,11 +848,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">PTA</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">模拟</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">模拟</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">PTA</a>
         		</li>
       		
 		</ul>
@@ -842,11 +932,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">PTA</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">模拟</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">模拟</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">PTA</a>
         		</li>
       		
 		</ul>
@@ -999,15 +1089,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">模拟</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">二分</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">PTA</a>
+                <a href="javascript:void(0)" class="js-tag color1">MSSQL</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">模拟</a>
+                <a href="javascript:void(0)" class="js-tag color4">PTA</a>
               </li>
             
             <div class="clearfix"></div>
