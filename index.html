@@ -152,6 +152,98 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-LanQiao-2018-6" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/22/LanQiao-2018-6/">LanQiao_2018_6 &#39;航班时间&#39;</a>
+    </h1>
+  
+
+        
+        <a href="/2019/03/22/LanQiao-2018-6/" class="archive-article-date">
+  	<time datetime="2019-03-22T14:34:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-22</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>小h前往美国参加了蓝桥杯国际赛。小h的女朋友发现小h上午十点出发，上午十二点到达美国，于是感叹到“现在飞机飞得真快，两小时就能到美国了”。</p>
+<p>小h对超音速飞行感到十分恐惧。仔细观察后发现飞机的起降时间都是当地时间。由于北京和美国东部有12小时时差，故飞机总共需要14小时的飞行时间。</p>
+<p>不久后小h的女朋友去中东交换。小h并不知道中东与北京的时差。但是小h得到了女朋友来回航班的起降时间。小h想知道女朋友的航班飞行时间是多少。</p>
+<p>对于一个可能跨时区的航班，给定来回程的起降时间。假设飞机来回飞行时间相同，求飞机的飞行时间。</p>
+<h4 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h4><p>从标准输入读入数据。<br>一个输入包含多组数据。</p>
+<p>输入第一行为一个正整数T，表示输入数据组数。<br>每组数据包含两行，第一行为去程的 起降 时间，第二行为回程的 起降 时间。<br>起降时间的格式如下</p>
+<p>h1:m1:s1 h2:m2:s2</p>
+<p>h1:m1:s1 h3:m3:s3 (+1)</p>
+<p>h1:m1:s1 h4:m4:s4 (+2)</p>
+<h4 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h4><p>输出到标准输出。</p>
+<p>对于每一组数据输出一行一个时间hh:mm:ss，表示飞行时间为hh小时mm分ss秒。<br>注意，当时间为一位数时，要补齐前导零。如三小时四分五秒应写为03:04:05。</p>
+<p><em>sample Input</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">3</span><br><span class="line">17:48:19 21:57:24</span><br><span class="line">11:05:18 15:14:23</span><br><span class="line">17:21:07 00:31:46 (+1)</span><br><span class="line">23:02:41 16:13:20 (+1)</span><br><span class="line">10:19:19 20:41:24</span><br><span class="line">22:19:04 16:41:09 (+1)</span><br></pre></td></tr></table></figure></p>
+<p><em>sample output</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">04:09:05</span><br><span class="line">12:10:39</span><br><span class="line">14:22:05</span><br></pre></td></tr></table></figure></p>
+<h4 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h4><p>设飞行时间为x，时差为y,则有s1 + x - y = e1 &amp;&amp; s2 + x + y = e2，则 ans = (e1 - s1 + e2 - s2) / 2;</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="keyword">char</span> words[<span class="number">50</span>];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">solve</span><span class="params">(<span class="keyword">char</span> * arr)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> sum, h, m, s, offset = <span class="number">2</span>, idx = <span class="number">0</span>;</span><br><span class="line">    h = (arr[<span class="number">0</span>] - <span class="string">'0'</span>) * <span class="number">10</span> + arr[<span class="number">1</span>] - <span class="string">'0'</span>;</span><br><span class="line">    m = (arr[<span class="number">3</span>] - <span class="string">'0'</span>) * <span class="number">10</span> + arr[<span class="number">4</span>] - <span class="string">'0'</span>;</span><br><span class="line">    s = (arr[<span class="number">6</span>] - <span class="string">'0'</span>) * <span class="number">10</span> + arr[<span class="number">7</span>] - <span class="string">'0'</span>;</span><br><span class="line">    sum = - (h * <span class="number">3600</span> + m * <span class="number">60</span> + s);</span><br><span class="line"></span><br><span class="line">    h = (arr[<span class="number">9</span>] - <span class="string">'0'</span>) * <span class="number">10</span> + arr[<span class="number">10</span>] - <span class="string">'0'</span>;</span><br><span class="line">    m = (arr[<span class="number">12</span>] - <span class="string">'0'</span>) * <span class="number">10</span> + arr[<span class="number">13</span>] - <span class="string">'0'</span>;</span><br><span class="line">    s = (arr[<span class="number">15</span>] - <span class="string">'0'</span>) * <span class="number">10</span> + arr[<span class="number">16</span>] - <span class="string">'0'</span>;</span><br><span class="line">    sum += (h * <span class="number">3600</span> + m * <span class="number">60</span> + s);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">strlen</span>(arr) &gt; <span class="number">17</span>) &#123;</span><br><span class="line">        sum += (arr[<span class="number">20</span>] - <span class="string">'0'</span>) * <span class="number">24</span> * <span class="number">3600</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">(<span class="keyword">int</span> time)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> h = time / <span class="number">3600</span>;</span><br><span class="line">    <span class="keyword">int</span> m = (time / <span class="number">60</span>) % <span class="number">60</span>;</span><br><span class="line">    <span class="keyword">int</span> s = time % <span class="number">60</span>;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%02d:%02d:%02d\n"</span>, h, m, s);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">    freopen(<span class="string">"in.txt"</span>, <span class="string">"r"</span>, <span class="built_in">stdin</span>);</span><br><span class="line">    <span class="keyword">int</span> t, ans;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d "</span>, &amp;t);</span><br><span class="line">    <span class="keyword">while</span> (t--) &#123;</span><br><span class="line">        gets(words);</span><br><span class="line">        ans = solve(words);</span><br><span class="line">        gets(words);</span><br><span class="line">        ans += solve(words);</span><br><span class="line">        print(ans / <span class="number">2</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">蓝桥杯</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">模拟</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/03/22/LanQiao-2018-6/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-MSSQL-STRUCTURE" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -371,11 +463,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">搜索</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">HDU</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">HDU</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">搜索</a>
         		</li>
       		
 		</ul>
@@ -892,90 +984,10 @@
 
 
   
-    <article id="post-PTA-1001" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/13/PTA-1001/">PTA 1001 &#39;A+B Format&#39;</a>
-    </h1>
-  
-
-        
-        <a href="/2019/03/13/PTA-1001/" class="archive-article-date">
-  	<time datetime="2019-03-13T11:29:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-13</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Calculate a+b and output the sum in standard format – that is, the digits must be separated into groups of three by commas (unless there are less than four digits).</p>
-<h4 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h4><p>Each input file contains one test case. Each case contains a pair of integers a and b where −10^​6​​ ≤a,b≤10^​6. The numbers are separated by a space.</p>
-<h4 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h4><p>For each test case, you should output the sum of a and b in one line. The sum must be written in the standard format.</p>
-<p><em>sample Input</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-1000000 9</span><br></pre></td></tr></table></figure></p>
-<p><em>sample output</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-999,991</span><br></pre></td></tr></table></figure></p>
-<h4 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h4><p>由于<code>a b</code>的数据范围在1e6,则最多有两个逗号，因此取绝对值分类讨论，同时应特别注意：<strong>中间的数字可能会缺少头部的零</strong></p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">(<span class="keyword">int</span> num)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> absNum = <span class="built_in">abs</span>(num);      <span class="comment">//&lt;cstdlib&gt;, &lt;cmath&gt; : fabs</span></span><br><span class="line">    <span class="keyword">if</span>(absNum &lt; <span class="number">1000</span>) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d"</span>, num);</span><br><span class="line">        </span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span>(absNum &lt; <span class="number">1000000</span>)&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d,%03d"</span>, num/<span class="number">1000</span>, absNum % <span class="number">1000</span>);</span><br><span class="line">        </span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d,%03d,%03d"</span>, num/<span class="number">1000000</span>, (num % <span class="number">1000000</span>)/<span class="number">1000</span>, num%<span class="number">1000</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">模拟</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">PTA</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/13/PTA-1001/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
+    <nav id="page-nav">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+    </nav>
   
 
 
@@ -1081,15 +1093,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">搜索</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">HDU</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">模拟</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1098,6 +1102,18 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">MSSQL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">蓝桥杯</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">模拟</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">搜索</a>
               </li>
              
               <li class="article-tag-list-item">
