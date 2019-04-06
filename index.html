@@ -152,19 +152,295 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-LanQiao-2018-6" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-SQL/SQL-多表查询" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/22/LanQiao-2018-6/">LanQiao_2018_6 &#39;航班时间&#39;</a>
+      <a class="article-title" href="/2019/04/06/SQL/SQL-多表查询/">SQL_多表查询</a>
     </h1>
   
 
         
-        <a href="/2019/03/22/LanQiao-2018-6/" class="archive-article-date">
+        <a href="/2019/04/06/SQL/SQL-多表查询/" class="archive-article-date">
+  	<time datetime="2019-04-06T09:14:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-06</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="多表查询分类"><a href="#多表查询分类" class="headerlink" title="多表查询分类"></a>多表查询分类</h3><ol>
+<li>内连接查询</li>
+<li>外连接查询</li>
+<li>子查询</li>
+</ol>
+<h4 id="内连接查询"><a href="#内连接查询" class="headerlink" title="内连接查询"></a>内连接查询</h4><ol>
+<li>隐式查询 : 使用<code>WHERE</code>消除无用数据</li>
+<li>显示查询 : <code>SELECT * FROM  emp [INNER] JOIN dept on ...</code></li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">-- 内连接 </span></span><br><span class="line"> </span><br><span class="line"><span class="comment">-- -- 查询所有员工的信息 和 对应的部门信息 </span></span><br><span class="line"><span class="keyword">select</span> </span><br><span class="line">	t1.ename, t1.dept_id, t2.id, t2.dname</span><br><span class="line"><span class="keyword">from</span> </span><br><span class="line">	emp t1, dept t2</span><br><span class="line"><span class="keyword">where</span> </span><br><span class="line">	t1.dept_id = t2.id;		<span class="comment">-- 隐式内连接 </span></span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> </span><br><span class="line">	t1.ename, t1.dept_id, t2.id, t2.dname</span><br><span class="line"><span class="keyword">from</span> </span><br><span class="line">	emp t1 <span class="keyword">inner</span> <span class="keyword">join</span> dept t2 </span><br><span class="line"><span class="keyword">on</span> </span><br><span class="line">	t1.dept_id = t2.id;			<span class="comment">-- 显示内连接</span></span><br></pre></td></tr></table></figure>
+<h4 id="外连接查询"><a href="#外连接查询" class="headerlink" title="外连接查询"></a>外连接查询</h4><ol>
+<li>左外连接：<code>SELECT * FORM table_1 LEFT JOIN table_2 ON...</code></li>
+<li>右外连接: <code>SELECT * FORM table_1 RIGHT JOIN table_2 ON...</code></li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 外连接</span></span><br><span class="line"><span class="comment">-- 查询所有员工的姓名 和 上级领导，没有上级领导也列出来 </span></span><br><span class="line"><span class="keyword">select</span> </span><br><span class="line">	t1.ename, t2.ename</span><br><span class="line"><span class="keyword">from</span> </span><br><span class="line">	emp t1 <span class="keyword">left</span> <span class="keyword">join</span> emp t2</span><br><span class="line"><span class="keyword">on</span> </span><br><span class="line">	t1.mgr = t2.id;</span><br></pre></td></tr></table></figure>
+<h4 id="子查询"><a href="#子查询" class="headerlink" title="子查询"></a>子查询</h4><blockquote>
+<p>查询中嵌套查询，称<strong>嵌套查询为子查询</strong></p>
+</blockquote>
+<p><em>子查询的不同情况</em></p>
+<ol>
+<li>子查询的结果是 <strong>单行单列</strong> : 一般使用 <code>&gt;, &gt;=, =</code>.</li>
+<li>子查询的结果是 <strong>多行单列</strong> : 可以使用<code>BTEWEEN...AND...</code></li>
+<li>子查询的结果是 <strong>多行多列</strong> : 将子查询结果集当作一张表，然后做关联.<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 子查询  （三种情况）</span></span><br><span class="line"><span class="comment">-- -- 单行单列</span></span><br><span class="line"><span class="comment">-- -- -- 查询员工工资小于平均工资的人 </span></span><br><span class="line"><span class="keyword">select</span> </span><br><span class="line">	t1.id, t1.ename, t1.salary, t2.idx</span><br><span class="line"><span class="keyword">from</span> </span><br><span class="line">	emp t1, (<span class="keyword">select</span> <span class="keyword">avg</span>(salary) idx <span class="keyword">from</span> emp) t2</span><br><span class="line"><span class="keyword">where</span> </span><br><span class="line">	t1.salary &lt;= t2.idx;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- -- 多行单列 </span></span><br><span class="line"><span class="comment">-- -- -- 查询 教研部 和 学工部 所有员工信息</span></span><br><span class="line"><span class="keyword">select</span> </span><br><span class="line">	t1.ename</span><br><span class="line"><span class="keyword">from</span> </span><br><span class="line">	emp t1, (<span class="keyword">select</span> <span class="keyword">id</span> <span class="keyword">from</span> dept <span class="keyword">where</span> dname <span class="keyword">in</span>(<span class="string">'教研部'</span>, <span class="string">'学工部'</span>)) t2</span><br><span class="line"><span class="keyword">where</span> </span><br><span class="line">	t1.dept_id = t2.id;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- -- 多行单列 </span></span><br><span class="line"><span class="comment">-- -- -- 查询员工入职日期是2012-10-1之后的员工信息和部门信息 </span></span><br><span class="line"><span class="keyword">select</span> </span><br><span class="line">	t1.* , t2.*</span><br><span class="line"><span class="keyword">from</span> </span><br><span class="line">	dept t1, (<span class="keyword">select</span> * <span class="keyword">from</span> emp <span class="keyword">where</span> joindate &gt; <span class="string">'2002-10-1'</span>) t2</span><br><span class="line"><span class="keyword">where</span> </span><br><span class="line">	t1.id = t2.dept_id;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><a href="https://gitee.com/simpletab/SqlPractice" target="_blank" rel="noopener">更多练习参考Gitee</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">SQL</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/04/06/SQL/SQL-多表查询/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-LeetCode-3" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/23/LeetCode-3/">LeetCode_3 &#39;无重复字符的最长子串&#39;</a>
+    </h1>
+  
+
+        
+        <a href="/2019/03/23/LeetCode-3/" class="archive-article-date">
+  	<time datetime="2019-03-23T02:10:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-23</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>给定一个字符串，请你找出其中不含有重复字符的 最长子串 的长度</p>
+<p><em>sample Input</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pwwkew</span><br></pre></td></tr></table></figure></p>
+<p><em>sample output</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">3</span><br></pre></td></tr></table></figure></p>
+<h4 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h4><p>暴力的方法：每次从a[i]开始往后扫描，如果有重复元素就从a[i+1]扫描</p>
+<p>优化的方法：每次向前移动一个位置，我们都需要重新判断下区间中是否有重复元素，实际上有很多不必要的比较。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">lengthOfLongestSubstring</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">    暴力的方法：每次从a[i]开始往后扫描，如果有重复元素就从a[i+1]扫描</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="keyword">int</span> len = s.size(), res = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">        <span class="built_in">memset</span>(vis, <span class="literal">false</span>, <span class="keyword">sizeof</span>(vis));</span><br><span class="line">        <span class="keyword">int</span> j = i;</span><br><span class="line">        <span class="keyword">while</span> (j &lt; len &amp;&amp; !vis[s[j]]) &#123;</span><br><span class="line">            vis[s[j++]] = <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        res = max(res, j - i);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">lengthOfLongestSubstring</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">    每次维持[i, j]元素不重复，每次尝试[j+1]</span></span><br><span class="line"><span class="comment">    </span></span><br><span class="line"><span class="comment">    如果[j+1]是一个重复元素，删除[i]，然后继续尝试[j+1]</span></span><br><span class="line"><span class="comment">    </span></span><br><span class="line"><span class="comment">    如果[j+1]不是一个重复元素，j++</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>, j = <span class="number">-1</span>, len = s.size();   <span class="comment">//a[i, j]元素不重复</span></span><br><span class="line">    <span class="keyword">while</span> (i &lt; len) &#123;</span><br><span class="line">        <span class="keyword">if</span>(j + <span class="number">1</span> &lt; len &amp;&amp; !vis[s[j+<span class="number">1</span>]]) &#123;</span><br><span class="line">            vis[s[++j]] = <span class="literal">true</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            res = max(res, j - i + <span class="number">1</span>);</span><br><span class="line">            vis[s[i++]] = <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">LeetCode</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">枚举优化</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">双指针</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/03/23/LeetCode-3/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-LanQiao/LanQiao-2018-8" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/22/LanQiao/LanQiao-2018-8/">LanQiao_2018_8 &#39;全球变暖&#39;</a>
+    </h1>
+  
+
+        
+        <a href="/2019/03/22/LanQiao/LanQiao-2018-8/" class="archive-article-date">
+  	<time datetime="2019-03-22T15:49:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-22</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>你有一张某海域NxN像素的照片，”.”表示海洋、”#”表示陆地，如下所示：</p>
+<p>…….<br>.##….<br>.##….<br>….##.<br>..####.<br>…###.<br>…….</p>
+<p>其中”上下左右”四个方向上连在一起的一片陆地组成一座岛屿。例如上图就有2座岛屿。</p>
+<p>由于全球变暖导致了海面上升，科学家预测未来几十年，岛屿边缘一个像素的范围会被海水淹没。具体来说如果一块陆地像素与海洋相邻(上下左右四个相邻像素中有海洋)，它就会被淹没。</p>
+<p>例如上图中的海域未来会变成如下样子：</p>
+<p>…….<br>…….<br>…….<br>…….<br>….#..<br>…….<br>…….</p>
+<p>请你计算：依照科学家的预测，照片中有多少岛屿会被完全淹没。</p>
+<h4 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h4><p>第一行包含一个整数N。 (1 &lt;= N &lt;= 1000)<br>以下N行N列代表一张海域照片。</p>
+<p>照片保证第1行、第1列、第N行、第N列的像素都是海洋。</p>
+<h4 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h4><p>一个整数表示答案。</p>
+<p><em>sample Input</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">7</span><br><span class="line">.......</span><br><span class="line">.##....</span><br><span class="line">.##....</span><br><span class="line">....##.</span><br><span class="line">..####.</span><br><span class="line">...###.</span><br><span class="line">.......</span><br></pre></td></tr></table></figure></p>
+<p><em>sample output</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1</span><br></pre></td></tr></table></figure></p>
+<h4 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h4><p>连通分量 然后修改下地图 连通分量</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"><span class="keyword">int</span> dir[<span class="number">4</span>][<span class="number">2</span>] = &#123;<span class="number">-1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">-1</span>&#125;;</span><br><span class="line"><span class="keyword">char</span> maze[<span class="number">1005</span>][<span class="number">1005</span>];</span><br><span class="line"><span class="keyword">bool</span> vis[<span class="number">1005</span>][<span class="number">1005</span>];</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">inArea</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span> &lt;= x &amp;&amp; x &lt; n &amp;&amp; <span class="number">0</span> &lt;= y &amp;&amp; y &lt; n;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">    vis[x][y] = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">int</span> newx = x + dir[i][<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">int</span> newy = y + dir[i][<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">if</span>(inArea(newx, newy) &amp;&amp; !vis[newx][newy] &amp;&amp; maze[newx][newy] == <span class="string">'#'</span>) &#123;</span><br><span class="line">            dfs(newx, newy);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">    freopen(<span class="string">"in.txt"</span>, <span class="string">"r"</span>, <span class="built_in">stdin</span>);</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d "</span>, &amp;n);           <span class="comment">//特别注意有个换行！</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%s"</span>, maze[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">memset</span>(vis, <span class="literal">false</span>, <span class="keyword">sizeof</span>(vis));</span><br><span class="line">    <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(!vis[i][j] &amp;&amp; maze[i][j] == <span class="string">'#'</span>) &#123;</span><br><span class="line">                ans++;</span><br><span class="line">                dfs(i, j);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt; n; j++) &#123;</span><br><span class="line">            <span class="keyword">bool</span> found = <span class="literal">false</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; <span class="number">4</span>; k++) &#123;</span><br><span class="line">                <span class="keyword">int</span> newx = i + dir[k][<span class="number">0</span>];</span><br><span class="line">                <span class="keyword">int</span> newy = j + dir[k][<span class="number">1</span>];</span><br><span class="line">                <span class="keyword">if</span>(maze[newx][newy] == <span class="string">'.'</span>) &#123;</span><br><span class="line">                    found = <span class="literal">true</span>;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span>(found) &#123;</span><br><span class="line">                maze[i][j] = <span class="string">'@'</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">memset</span>(vis, <span class="literal">false</span>, <span class="keyword">sizeof</span>(vis));</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(maze[i][j] == <span class="string">'#'</span> &amp;&amp; !vis[i][j]) &#123;</span><br><span class="line">                ans--;</span><br><span class="line">                dfs(i, j);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d"</span>, ans);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">搜索</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">蓝桥杯</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/03/22/LanQiao/LanQiao-2018-8/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-LanQiao/LanQiao-2018-6" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/22/LanQiao/LanQiao-2018-6/">LanQiao_2018_6 &#39;航班时间&#39;</a>
+    </h1>
+  
+
+        
+        <a href="/2019/03/22/LanQiao/LanQiao-2018-6/" class="archive-article-date">
   	<time datetime="2019-03-22T14:34:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-22</time>
 </a>
         
@@ -200,11 +476,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">蓝桥杯</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">模拟</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">模拟</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">蓝桥杯</a>
         		</li>
       		
 		</ul>
@@ -214,7 +490,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/22/LanQiao-2018-6/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/03/22/LanQiao/LanQiao-2018-6/">展开全文 >></a>
         </p>
       
 
@@ -244,19 +520,19 @@
 
 
   
-    <article id="post-MSSQL-STRUCTURE" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-SQL/MSSQL-STRUCTURE" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/18/MSSQL-STRUCTURE/">MSSQL (1) STRUCTURE_DEFINE</a>
+      <a class="article-title" href="/2019/03/18/SQL/MSSQL-STRUCTURE/">MSSQL (1) STRUCTURE_DEFINE</a>
     </h1>
   
 
         
-        <a href="/2019/03/18/MSSQL-STRUCTURE/" class="archive-article-date">
+        <a href="/2019/03/18/SQL/MSSQL-STRUCTURE/" class="archive-article-date">
   	<time datetime="2019-03-18T13:35:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-18</time>
 </a>
         
@@ -296,6 +572,10 @@
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MSSQL</a>
         		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">SQL</a>
+        		</li>
       		
 		</ul>
 	</div>
@@ -304,7 +584,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/18/MSSQL-STRUCTURE/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/03/18/SQL/MSSQL-STRUCTURE/">展开全文 >></a>
         </p>
       
 
@@ -463,11 +743,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">HDU</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">搜索</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">搜索</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">HDU</a>
         		</li>
       		
 		</ul>
@@ -734,256 +1014,6 @@
 
 
   
-    <article id="post-HDU-4004" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/14/HDU-4004/">HDU 4004 &#34;The Frog&#39;s Games&#34;</a>
-    </h1>
-  
-
-        
-        <a href="/2019/03/14/HDU-4004/" class="archive-article-date">
-  	<time datetime="2019-03-14T13:02:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>The annual Games in frogs’ kingdom started again. The most famous game is the Ironfrog Triathlon. One test in the Ironfrog Triathlon is jumping. This project requires the frog athletes to jump over the river. The width of the river is L (1&lt;= L &lt;= 1000000000). There are n (0&lt;= n &lt;= 500000) stones lined up in a straight line from one side to the other side of the river. The frogs can only jump through the river, but they can land on the stones. If they fall into the river, they are out. The frogs was asked to jump at most m (1&lt;= m &lt;= n+1) times. Now the frogs want to know if they want to jump across the river, at least what ability should they have. (That is the frog’s longest jump distance).</p>
-<p><a href="http://acm.hdu.edu.cn/showproblem.php?pid=4004" target="_blank" rel="noopener">HDU-4004</a></p>
-<h4 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h4><p>The input contains several cases. The first line of each case contains three positive integer L, n, and m.<br>Then n lines follow. Each stands for the distance from the starting banks to the nth stone, two stone appear in one place is impossible.</p>
-<h4 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h4><p>For each case, output a integer standing for the frog’s ability at least they should have.</p>
-<p><em>sample Input</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">6 1 2</span><br><span class="line">2</span><br><span class="line">25 3 3</span><br><span class="line">11 </span><br><span class="line">2</span><br><span class="line">18</span><br></pre></td></tr></table></figure></p>
-<p><em>sample output</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">4</span><br><span class="line">11</span><br></pre></td></tr></table></figure></p>
-<h4 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h4><p>首先要注意 <strong>青蛙最多跳m次，而不是只能跳m次</strong>，所以问题的解范围:[石头间最大间距, 河长]，即可以枚举.</p>
-<p>在判断一个gap是否合格，<strong>主要判断步长为gap时是否能在m次到达河岸</strong>。</p>
-<h5 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h5><p>在设计check函数时，相当然的以为青蛙每次至少能走动一次(实际本来也应该是这样)，但是我偷懒，直接从<code>gap == 1</code>开始枚举，结果出现死循环。</p>
-<p>其次，maxLen针对每次case没有初始化，结果提交n次，最后拿着AC的题解一行行比对…</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> stone[<span class="number">500005</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">check</span><span class="params">(<span class="keyword">int</span> gap, <span class="keyword">int</span> n, <span class="keyword">int</span> m)</span> </span>&#123;   <span class="comment">//以gap为步长，是否能过河 ： 即过河需要走多少步</span></span><br><span class="line">    <span class="keyword">int</span> pos = <span class="number">0</span>, cnt = <span class="number">0</span>;   <span class="comment">//pos ：此刻青蛙的位置，时刻维护这个定义 orz!</span></span><br><span class="line">    <span class="keyword">while</span>(pos &lt; n + <span class="number">1</span>) &#123;    <span class="comment">//arr's range : [0, n + 1]</span></span><br><span class="line">        <span class="keyword">int</span> len = stone[pos] + gap;</span><br><span class="line">        <span class="keyword">while</span> (pos + <span class="number">1</span> &lt;= n + <span class="number">1</span> &amp;&amp; len &gt;= stone[pos + <span class="number">1</span>]) &#123;     <span class="comment">//能走到下一个位置，且下一个位置合法</span></span><br><span class="line">            pos++;</span><br><span class="line">        &#125;   <span class="comment">//找到下一个位置</span></span><br><span class="line">        cnt++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> cnt &lt;= m;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> L, n, m, maxLen = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (<span class="built_in">scanf</span>(<span class="string">"%d%d%d"</span>, &amp;L, &amp;n, &amp;m) != EOF) &#123;</span><br><span class="line">        stone[<span class="number">0</span>] = <span class="number">0</span>, stone[n+<span class="number">1</span>] = L;</span><br><span class="line">        maxLen = <span class="number">0</span>;    <span class="comment">// orz </span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;stone[i]);</span><br><span class="line"></span><br><span class="line">        sort(stone, stone + n + <span class="number">2</span>);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= n; i++)</span><br><span class="line">            maxLen = max(maxLen, stone[i + <span class="number">1</span>] - stone[i]);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = maxLen; i &lt;= L; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(check(i, n, m)) &#123;</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, i);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">HDU</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">二分</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/14/HDU-4004/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-PTA-1003" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/13/PTA-1003/">PTA 1003</a>
-    </h1>
-  
-
-        
-        <a href="/2019/03/13/PTA-1003/" class="archive-article-date">
-  	<time datetime="2019-03-13T14:25:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-13</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>As an emergency rescue team leader of a city, you are given a special map of your country. The map shows several scattered cities connected by some roads. Amount of rescue teams in each city and the length of each road between any pair of cities are marked on the map. When there is an emergency call to you from some other city, your job is to lead your men to the place as quickly as possible, and at the mean time, call up as many hands on the way as possible. </p>
-<h4 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h4><p>Each input file contains one test case. For each test case, the first line contains 4 positive integers: N (&lt;= 500) - the number of cities (and the cities are numbered from 0 to N-1), M - the number of roads, C1 and C2 - the cities that you are currently in and that you must save, respectively. The next line contains N integers, where the i-th integer is the number of rescue teams in the i-th city. Then M lines follow, each describes a road with three integers c1, c2 and L, which are the pair of cities connected by a road and the length of that road, respectively. It is guaranteed that there exists at least one path from C1 to C2. </p>
-<h4 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h4><p>For each test case, print in one line two numbers: the number of different shortest paths between C1 and C2, and the maximum amount of rescue teams you can possibly gather.\ All the numbers in a line must be separated by exactly one space, and there is no extra space allowed at the end of a line. </p>
-<p><em>sample Input</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">5 6 0 2 </span><br><span class="line">1 2 1 5 3 </span><br><span class="line">0 1 1 </span><br><span class="line">0 2 2 </span><br><span class="line">0 3 1 </span><br><span class="line">1 2 1 </span><br><span class="line">2 4 1 </span><br><span class="line">3 4 1</span><br></pre></td></tr></table></figure></p>
-<p><em>sample output</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2 4</span><br></pre></td></tr></table></figure></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">PTA</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/13/PTA-1003/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-PTA-1002" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/13/PTA-1002/">PTA 1002 A+B for Polynomials</a>
-    </h1>
-  
-
-        
-        <a href="/2019/03/13/PTA-1002/" class="archive-article-date">
-  	<time datetime="2019-03-13T14:11:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-13</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>This time, you are supposed to find A+B where A and B are two polynomials.</p>
-<h4 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h4><p>Each input file contains one test case. Each case occupies 2 lines, and each line contains the information of a polynomial:<br>1 &lt; K &lt; 10, 0 &lt;= N &lt;= 1000</p>
-<h4 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h4><p>For each test case you should output the sum of A and B in one line, with the same format as the input. Notice that there must be NO extra space at the end of each line. Please be accurate to 1 decimal place.</p>
-<p><em>sample Input</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2 1 2.4 0 3.2</span><br><span class="line">2 2 1.5 1 0.5</span><br></pre></td></tr></table></figure></p>
-<p><em>sample output</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">3 2 1.5 1 2.9 0 3.2</span><br></pre></td></tr></table></figure></p>
-<h4 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h4><p>两个有序数组同类项合并，特别注意：<strong>当系数为零，不应该输出出来</strong>， 非常像归并排序，<strong>注意索引的意义</strong></p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">double</span> eps = <span class="number">1e-6</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> a1[<span class="number">15</span>], b1[<span class="number">15</span>], c1[<span class="number">25</span>];</span><br><span class="line"><span class="keyword">double</span> a2[<span class="number">15</span>], b2[<span class="number">15</span>], c2[<span class="number">25</span>];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">//freopen("in.txt", "r", stdin);</span></span><br><span class="line">    <span class="keyword">int</span> n, m, a = <span class="number">0</span>, b = <span class="number">0</span>, c = <span class="number">0</span>;    <span class="comment">//[0,a),[0,b),[0,c)已经考虑了</span></span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d%lf"</span>, &amp;a1[i], &amp;a2[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;m);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i++) &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d%lf"</span>, &amp;b1[i], &amp;b2[i]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(a &lt; n &amp;&amp; b &lt; m) &#123;</span><br><span class="line">        <span class="keyword">if</span>(a1[a] == b1[b]) &#123;</span><br><span class="line">            <span class="keyword">if</span>(<span class="built_in">fabs</span>(a2[a] + b2[b]) &lt; eps ) &#123;</span><br><span class="line">                a++, b++;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            c1[c] = a1[a];</span><br><span class="line">            c2[c++] = a2[a++] + b2[b++];</span><br><span class="line"></span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span>(a1[a] &gt; b1[b]) &#123;</span><br><span class="line">            c1[c] = a1[a];</span><br><span class="line">            c2[c++] = a2[a++];</span><br><span class="line"></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            c1[c] = b1[b];</span><br><span class="line">            c2[c++] = b2[b++];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(a == n) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = b; i &lt; m; i++) &#123;</span><br><span class="line">            c1[c] = b1[i];</span><br><span class="line">            c2[c++] = b2[i];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(b == m) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = a; i &lt; n; i++) &#123;</span><br><span class="line">            c1[c] = a1[i];</span><br><span class="line">            c2[c++] = a2[i];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//output</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d"</span>, c);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; c; i++) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">" %d %.1f"</span>, c1[i], c2[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">模拟</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">PTA</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/13/PTA-1002/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -1081,15 +1111,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Sort</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Cpp</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Memo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Sort</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">搜索</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1101,11 +1135,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">MSSQL</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">蓝桥杯</a>
+                <a href="javascript:void(0)" class="js-tag color4">PTA</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1113,11 +1143,27 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">搜索</a>
+                <a href="javascript:void(0)" class="js-tag color4">LeetCode</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">PTA</a>
+                <a href="javascript:void(0)" class="js-tag color5">枚举优化</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">双指针</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">MSSQL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">蓝桥杯</a>
               </li>
             
             <div class="clearfix"></div>

@@ -6,15 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://charlie17li.github.io">
-  <title>Tag: Memo | Charlie&#39;s Blog</title>
+  <title>MSSQL (1) STRUCTURE_DEFINE | Charlie&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Charlie&#39;s Blog">
-<meta property="og:url" content="https://charlie17li.github.io/tags/Memo/index.html">
+  <meta name="description" content="定义表和完整性约束在此之前需要明白几个概念：列级完整性约束，表级完整性约束，总共有6个完整性约束，NOT NULL 和 DEFAULT 只能在列级完整性约束定义. 12345678910111213141516--定义表,主要理解约束的两种写法，以及常用的数据类型.CREATE TABLE Student (    stu_id VARCHAR(16) PRIMARY KEY,    stu_na">
+<meta name="keywords" content="MSSQL,SQL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MSSQL (1) STRUCTURE_DEFINE">
+<meta property="og:url" content="https://charlie17li.github.io/2019/03/18/SQL/MSSQL-STRUCTURE/index.html">
 <meta property="og:site_name" content="Charlie&#39;s Blog">
+<meta property="og:description" content="定义表和完整性约束在此之前需要明白几个概念：列级完整性约束，表级完整性约束，总共有6个完整性约束，NOT NULL 和 DEFAULT 只能在列级完整性约束定义. 12345678910111213141516--定义表,主要理解约束的两种写法，以及常用的数据类型.CREATE TABLE Student (    stu_id VARCHAR(16) PRIMARY KEY,    stu_na">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-04-06T09:15:10.004Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Charlie&#39;s Blog">
+<meta name="twitter:title" content="MSSQL (1) STRUCTURE_DEFINE">
+<meta name="twitter:description" content="定义表和完整性约束在此之前需要明白几个概念：列级完整性约束，表级完整性约束，总共有6个完整性约束，NOT NULL 和 DEFAULT 只能在列级完整性约束定义. 12345678910111213141516--定义表,主要理解约束的两种写法，以及常用的数据类型.CREATE TABLE Student (    stu_id VARCHAR(16) PRIMARY KEY,    stu_na">
   
     <link rel="alternative" href="/atom.xml" title="Charlie&#39;s Blog" type="application/atom+xml">
   
@@ -150,64 +155,175 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-SQL/MSSQL-STRUCTURE" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/03/14/Cpp-RandomNum/" class="archive-article-date">
-  	<time datetime="2019-03-14T15:56:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-14</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/14/Cpp-RandomNum/">Cpp_RandomNum</a>
+    <h1 class="article-title" itemprop="name">
+      MSSQL (1) STRUCTURE_DEFINE
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2019/03/18/SQL/MSSQL-STRUCTURE/" class="archive-article-date">
+  	<time datetime="2019-03-18T13:35:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="定义表和完整性约束"><a href="#定义表和完整性约束" class="headerlink" title="定义表和完整性约束"></a>定义表和完整性约束</h4><p>在此之前需要明白几个概念：<code>列级完整性约束</code>，<code>表级完整性约束</code>，总共有6个完整性约束，<code>NOT NULL</code> 和 <code>DEFAULT</code> 只能在列级完整性约束定义.</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--定义表,主要理解约束的两种写法，以及常用的数据类型.</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Student (</span><br><span class="line">    stu_id <span class="built_in">VARCHAR</span>(<span class="number">16</span>) PRIMARY <span class="keyword">KEY</span>,</span><br><span class="line">    stu_name <span class="built_in">VARCHAR</span>(<span class="number">16</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">    cla_id <span class="built_in">VARCHAR</span>(<span class="number">32</span>) <span class="keyword">REFERENCES</span> <span class="keyword">Class</span>(cla_id),</span><br><span class="line">    idCard <span class="built_in">VARCHAR</span>(<span class="number">32</span>) <span class="keyword">UNIQUE</span>,</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="keyword">Class</span> (</span><br><span class="line">    cla_id <span class="built_in">VARCHAR</span>(<span class="number">16</span>),</span><br><span class="line">    cla_name <span class="built_in">VARCHAR</span>(<span class="number">32</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">    col_id <span class="built_in">VARCHAR</span>(<span class="number">2</span>),</span><br><span class="line">    tuition MONEY,</span><br><span class="line">    <span class="keyword">CONSTRAINT</span> PK_Class_cla_id PRIMARY <span class="keyword">KEY</span>(cla_id),     <span class="comment">--自定义名字</span></span><br><span class="line">    <span class="keyword">FOREIGN</span> <span class="keyword">KEY</span>(col_id) <span class="keyword">REFERENCES</span> college(col_id),     <span class="comment">--默认使用系统的</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<h4 id="修改表结构"><a href="#修改表结构" class="headerlink" title="修改表结构"></a>修改表结构</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">------增加列------</span></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> Student <span class="keyword">ADD</span> sex <span class="built_in">varchar</span>(<span class="number">2</span>) <span class="keyword">DEFAULT</span> <span class="string">'男'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">------删除列------</span></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> Student <span class="keyword">DROP</span> sex;</span><br><span class="line"></span><br><span class="line"><span class="comment">------修改列------</span></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> Student <span class="keyword">ALTER</span> <span class="keyword">COLUMN</span> sex <span class="built_in">BIT</span> <span class="keyword">DEFAULT</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">------增加约束------</span></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> Student </span><br><span class="line">    <span class="keyword">ADD</span> <span class="keyword">CONSTRAINT</span> CK_Student_sex <span class="keyword">CHECK</span>(sex = <span class="string">'男'</span> <span class="keyword">OR</span> sex = <span class="string">'女'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">------删除约束------</span></span><br><span class="line"><span class="keyword">ALTER</span> TALBE Student <span class="keyword">DROP</span> <span class="keyword">CONSTRAINT</span> CK_Student_sex;</span><br></pre></td></tr></table></figure>
+<p><em>对于修改操作还需要注意一些东西</em>：</p>
+<ul>
+<li><p>对于<code>NOT NULL</code>约束，如果字段里没有加索引则可以通过<code>ALTER COLUMN</code>修改表的定义来修改，否则要先删除索引.</p>
+</li>
+<li><p><code>VARCHAR(MAX)</code> 不能添加 <code>UNIQUE</code>约束.</p>
+</li>
+<li><p>同时对于SQL:case insensitive 的认识是<strong>针对关键字以及表名，列名等</strong>，表中的值不能与之比较.</p>
+</li>
+</ul>
+<h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><ul>
+<li>删除表的时候先删除外键所在表，创建表时先建立主键所在表.</li>
+<li><strong>唯一性约束允许有一个空值，可以限制一列，也可以限制多列组合</strong>.</li>
+<li>varchar(n) 也可以存储中文，只是一个中文算两个字符，即(n-2)，而nvarchar(n) 英文中文都算一个字符，即(n-1).</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Cpp</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MSSQL</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Memo</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">SQL</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://charlie17li.github.io/2019/03/18/SQL/MSSQL-STRUCTURE/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2019/03/22/LanQiao/LanQiao-2018-6/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          LanQiao_2018_6 &#39;航班时间&#39;
+        
+      </div>
+    </a>
   
   
-    </div></section>
+    <a href="/2019/03/17/HDU-2018/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">HDU 2018 &#34;母牛的故事&#34;</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -230,9 +346,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
